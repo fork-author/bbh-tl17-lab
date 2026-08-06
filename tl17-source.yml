@@ -1,0 +1,14 @@
+name: TL-17 source
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+permissions:
+  contents: read
+
+jobs:
+  source:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "TL-17 source: synthetic fork PR only."
