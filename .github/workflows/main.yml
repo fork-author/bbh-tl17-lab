@@ -1,0 +1,13 @@
+name: TL-17 lab
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  no-op:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "TL-17 laboratory initialized; no target action runs."
