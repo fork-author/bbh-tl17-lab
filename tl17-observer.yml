@@ -1,0 +1,29 @@
+name: TL-17 observer
+
+on:
+  workflow_run:
+    workflows: ["TL-17 source"]
+    types: [completed]
+
+permissions:
+  contents: read
+
+jobs:
+  observe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Record safe event metadata
+        env:
+          JOB_ACTOR: ${{ github.actor }}
+          TRIGGERING_ACTOR: ${{ github.triggering_actor }}
+          SOURCE_ACTOR: ${{ github.event.workflow_run.actor.login }}
+          SOURCE_EVENT: ${{ github.event.workflow_run.event }}
+          HEAD_REPOSITORY: ${{ github.event.workflow_run.head_repository.full_name }}
+          CONCLUSION: ${{ github.event.workflow_run.conclusion }}
+        run: |
+          printf 'job_actor=%s\n' "$JOB_ACTOR"
+          printf 'triggering_actor=%s\n' "$TRIGGERING_ACTOR"
+          printf 'source_actor=%s\n' "$SOURCE_ACTOR"
+          printf 'source_event=%s\n' "$SOURCE_EVENT"
+          printf 'head_repository=%s\n' "$HEAD_REPOSITORY"
+          printf 'conclusion=%s\n' "$CONCLUSION"
